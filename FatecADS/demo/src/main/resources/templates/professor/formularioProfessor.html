@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Professor</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-block">
+                <p class="eyebrow">Sistema Fatec ADS</p>
+                <a class="brand" th:href="@{/}">Painel Academico</a>
+            </div>
+
+            <nav class="topnav">
+                <a class="nav-link" th:href="@{/aluno/listar}">Alunos</a>
+                <a class="nav-link is-active" th:href="@{/professor/listar}">Professores</a>
+                <a class="nav-link" th:href="@{/disciplina/listar}">Disciplinas</a>
+            </nav>
+        </header>
+
+        <main class="content-grid">
+            <section class="hero-card">
+                <span class="hero-badge">Ficha docente</span>
+                <h1 class="hero-title" th:text="${professor.idProfessor == null} ? 'Novo professor' : 'Editar professor'"></h1>
+                <p class="hero-text">
+                    Registre as informacoes do docente para manter a equipe organizada e pronta para consulta.
+                </p>
+            </section>
+
+            <section class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-title">Informacoes do professor</h2>
+                    <p class="form-subtitle">Utilize dados consistentes para facilitar a administracao academica.</p>
+                </div>
+
+                <form th:action="@{/professor/salvar}" th:object="${professor}" method="post">
+                    <input type="hidden" th:field="*{idProfessor}">
+
+                    <div class="form-grid">
+                        <div class="field field-full">
+                            <label for="nomeProfessor">Nome</label>
+                            <input id="nomeProfessor" type="text" th:field="*{nomeProfessor}" maxlength="40" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="telefoneProfessor">Telefone</label>
+                            <input id="telefoneProfessor" type="text" th:field="*{telefoneProfessor}" maxlength="11" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="rmProfessor">RM</label>
+                            <input id="rmProfessor" type="text" th:field="*{rmProfessor}" maxlength="20" required>
+                        </div>
+
+                        <div class="field field-full">
+                            <label for="graduacaoProfessor">Graduacao</label>
+                            <input id="graduacaoProfessor" type="text" th:field="*{graduacaoProfessor}" maxlength="80" required>
+                        </div>
+                    </div>
+
+                    <p class="helper-text">A graduacao ajuda a identificar o perfil academico do professor.</p>
+
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <a class="button button-ghost" th:href="@{/professor/listar}">Cancelar</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

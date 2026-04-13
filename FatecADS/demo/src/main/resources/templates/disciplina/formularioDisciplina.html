@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Disciplina</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-block">
+                <p class="eyebrow">Sistema Fatec ADS</p>
+                <a class="brand" th:href="@{/}">Painel Academico</a>
+            </div>
+
+            <nav class="topnav">
+                <a class="nav-link" th:href="@{/aluno/listar}">Alunos</a>
+                <a class="nav-link" th:href="@{/professor/listar}">Professores</a>
+                <a class="nav-link is-active" th:href="@{/disciplina/listar}">Disciplinas</a>
+            </nav>
+        </header>
+
+        <main class="content-grid">
+            <section class="hero-card">
+                <span class="hero-badge">Componente curricular</span>
+                <h1 class="hero-title" th:text="${disciplina.idDisciplina == null} ? 'Nova disciplina' : 'Editar disciplina'"></h1>
+                <p class="hero-text">
+                    Cadastre os elementos centrais de cada materia para manter a grade organizada e facil de consultar.
+                </p>
+            </section>
+
+            <section class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-title">Informacoes da disciplina</h2>
+                    <p class="form-subtitle">Use uma sigla clara e registre corretamente a carga horaria.</p>
+                </div>
+
+                <form th:action="@{/disciplina/salvar}" th:object="${disciplina}" method="post">
+                    <input type="hidden" th:field="*{idDisciplina}">
+
+                    <div class="form-grid">
+                        <div class="field field-full">
+                            <label for="nomeDisciplina">Nome</label>
+                            <input id="nomeDisciplina" type="text" th:field="*{nomeDisciplina}" maxlength="40" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="siglaDisciplina">Sigla</label>
+                            <input id="siglaDisciplina" type="text" th:field="*{siglaDisciplina}" maxlength="10" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="cargaHorariaDisciplina">Carga horaria</label>
+                            <input id="cargaHorariaDisciplina" type="text" th:field="*{cargaHorariaDisciplina}" maxlength="40" required>
+                        </div>
+                    </div>
+
+                    <p class="helper-text">Exemplo de preenchimento: 80h, 40 horas ou carga semestral equivalente.</p>
+
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <a class="button button-ghost" th:href="@{/disciplina/listar}">Cancelar</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

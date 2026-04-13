@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Aluno</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-block">
+                <p class="eyebrow">Sistema Fatec ADS</p>
+                <a class="brand" th:href="@{/}">Painel Academico</a>
+            </div>
+
+            <nav class="topnav">
+                <a class="nav-link is-active" th:href="@{/aluno/listar}">Alunos</a>
+                <a class="nav-link" th:href="@{/professor/listar}">Professores</a>
+                <a class="nav-link" th:href="@{/disciplina/listar}">Disciplinas</a>
+            </nav>
+        </header>
+
+        <main class="content-grid">
+            <section class="hero-card">
+                <span class="hero-badge">Ficha academica</span>
+                <h1 class="hero-title" th:text="${aluno.idAluno == null} ? 'Novo aluno' : 'Editar aluno'"></h1>
+                <p class="hero-text">
+                    Preencha os dados essenciais do estudante para manter o cadastro completo e pronto para consulta.
+                </p>
+            </section>
+
+            <section class="form-card">
+                <div class="form-card-header">
+                    <h2 class="form-title">Informacoes do aluno</h2>
+                    <p class="form-subtitle">Campos obrigatorios garantem um cadastro consistente para o sistema.</p>
+                </div>
+
+                <form th:action="@{/aluno/salvar}" th:object="${aluno}" method="post">
+                    <input type="hidden" th:field="*{idAluno}">
+
+                    <div class="form-grid">
+                        <div class="field field-full">
+                            <label for="nomeAluno">Nome</label>
+                            <input id="nomeAluno" type="text" th:field="*{nomeAluno}" maxlength="40" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="emailAluno">E-mail</label>
+                            <input id="emailAluno" type="email" th:field="*{emailAluno}" maxlength="80">
+                        </div>
+
+                        <div class="field">
+                            <label for="telefoneAluno">Telefone</label>
+                            <input id="telefoneAluno" type="text" th:field="*{telefoneAluno}" maxlength="11" required>
+                        </div>
+
+                        <div class="field field-full">
+                            <label for="enderecoAluno">Endereco</label>
+                            <input id="enderecoAluno" type="text" th:field="*{enderecoAluno}" maxlength="50" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="cpfAluno">CPF</label>
+                            <input id="cpfAluno" type="text" th:field="*{cpfAluno}" required>
+                        </div>
+
+                        <div class="field">
+                            <label for="raAluno">RA</label>
+                            <input id="raAluno" type="text" th:field="*{raAluno}" required>
+                        </div>
+                    </div>
+
+                    <p class="helper-text">Revise os dados antes de salvar para evitar divergencias cadastrais.</p>
+
+                    <div class="button-row">
+                        <button class="button button-primary" type="submit">Salvar</button>
+                        <a class="button button-ghost" th:href="@{/aluno/listar}">Cancelar</a>
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

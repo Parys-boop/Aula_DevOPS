@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professores</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="topbar">
+            <div class="brand-block">
+                <p class="eyebrow">Sistema Fatec ADS</p>
+                <a class="brand" th:href="@{/}">Painel Academico</a>
+            </div>
+
+            <nav class="topnav">
+                <a class="nav-link" th:href="@{/aluno/listar}">Alunos</a>
+                <a class="nav-link is-active" th:href="@{/professor/listar}">Professores</a>
+                <a class="nav-link" th:href="@{/disciplina/listar}">Disciplinas</a>
+            </nav>
+        </header>
+
+        <main class="content-grid">
+            <section class="hero-card">
+                <span class="hero-badge">Corpo docente</span>
+                <h1 class="hero-title">Gestao de professores</h1>
+                <p class="hero-text">
+                    Centralize os dados do corpo docente, acompanhe graduacoes e mantenha o RM sempre acessivel.
+                </p>
+                <div class="hero-actions">
+                    <a class="button button-primary" th:href="@{/professor/criar}">Novo professor</a>
+                    <a class="button button-secondary" th:href="@{/disciplina/listar}">Ver disciplinas</a>
+                </div>
+            </section>
+
+            <section class="panel">
+                <div class="panel-header">
+                    <div>
+                        <h2 class="panel-title">Lista de professores</h2>
+                        <p class="panel-subtitle">Visualize rapidamente nome, telefone, graduacao e identificacao interna.</p>
+                    </div>
+                    <span class="stat-chip" th:text="${#lists.size(professores)} + ' itens'"></span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Professor</th>
+                                <th>Contato</th>
+                                <th>RM</th>
+                                <th>Acoes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="professor : ${professores}">
+                                <td th:text="${professor.idProfessor}"></td>
+                                <td>
+                                    <div class="cell-stack">
+                                        <span class="cell-primary" th:text="${professor.nomeProfessor}"></span>
+                                        <span class="cell-secondary" th:text="${professor.graduacaoProfessor}"></span>
+                                    </div>
+                                </td>
+                                <td th:text="${professor.telefoneProfessor}"></td>
+                                <td th:text="${professor.rmProfessor}"></td>
+                                <td>
+                                    <div class="row-actions">
+                                        <a class="row-link" th:href="@{/professor/editar/{id}(id=${professor.idProfessor})}">Editar</a>
+                                        <a class="row-link row-link-danger" th:href="@{/professor/excluir/{id}(id=${professor.idProfessor})}">Excluir</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(professores)}">
+                                <td class="empty-state" colspan="5">Nenhum professor cadastrado.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
